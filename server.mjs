@@ -1,9 +1,12 @@
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { resolve, extname } from 'node:path';
+import { createRequire } from 'node:module';
+const configHandler = createRequire(import.meta.url)('./api/config.js');
 const root = resolve(import.meta.dirname, 'public');
 createServer(async (req, res) => {
   try {
+    if (new URL(req.url, 'http://localhost').pathname === '/api/config') { configHandler(req, res); return; }
     const path = resolve(root, '.' + decodeURIComponent(new URL(req.url, 'http://localhost').pathname === '/' ? '/index.html' : new URL(req.url, 'http://localhost').pathname));
     if (!path.startsWith(root + '/')) { res.writeHead(403).end(); return; }
     const data = await readFile(path);
