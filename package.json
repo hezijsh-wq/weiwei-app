@@ -2,5 +2,5 @@
   "name": "star-memory",
   "version": "0.1.0",
   "private": true,
-  "scripts": { "start": "node server.mjs", "check": "node --check public/app.js && node --check server.mjs" }
+  "scripts": { "start": "node server.mjs", "check": "node --check public/app.js && node --check public/growth.js && node --check server.mjs" }
 }
